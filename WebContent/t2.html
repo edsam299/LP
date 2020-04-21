@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+ <p>Click the button to open a new tab </p> 
+    <button onclick="NewTab()" id="sk"> 
+      Open Geeksforgeeks 
+  </button> 
+  <script>
+  var c = 230000;
+  var d= c;
+  var count=0;
+var myTimer = setInterval(myClock, c);
+function myClock() {
+	 var add = 10;
+	  c = c+add;
+	  var sk = c-d;
+	  if(sk>=100 && sk<389) add=150;
+	  else if(sk>=1501 && sk<2500) add=250;
+	  else add=230;
+	  console.log(c);
+	  NewTab();
+	  count=count+1;
+}
+</script>
+    <script> 
+        function NewTab() { 
+        	window.open((count%5==0?"https://www.youtube.com/watch?v=hK4ZdxIrix0":
+            	(count%5==1?"https://www.youtube.com/watch?v=meH1OYDENQ8&feature=youtu.be":
+            		(count%5==2?"https://www.youtube.com/watch?v=KBbiMNF1tfc&feature=youtu.be":
+            			(count%5==3?"https://www.youtube.com/watch?v=2j80tiszThU&feature=youtu.be":
+            				"https://www.youtube.com/watch?v=2o8QRCIooAM"))))
+              , "_blank"); 
+        } 
+    </script>
+
+</body>
+</html>
