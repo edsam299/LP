@@ -72,6 +72,14 @@ function setUI(){
 						(headername[3].length==0?'':headername[3]+"&gt;")+
 						userapprovecontent_unit+
 						"</b></h5></td><td>&nbsp;</td></tr></table>";
+						btnUserapprovePredeunit(header,function(pdeunit){
+							document.getElementById("btnUserapprovePredeunit").innerHTML= pdeunit;
+						});
+						document.getElementById(btnUserapprovePredeunit).addEventListener('click', function() {
+							popPreDeUnit();
+
+						},true);
+						
 					}
 				});
 			}			
@@ -79,5 +87,39 @@ function setUI(){
 			console.log(sk1);
 		}
 	});
-	
+	function btnUserapprovePredeunit(header,cb){
+		var pdeunit="Pre De Unit:&nbsp;";
+		var level = '';
+		var key = '';
+		for(var s=0;s<header.length;s++){
+			if(header[0].length!=0){
+				level=4; key=header[0];
+				break;
+			}
+			if(header[1].length!=0){
+				level=5; key=header[1];
+				break;
+			}
+			if(header[2].length!=0){
+				level=6; key=header[2];
+				break;
+			}
+			if(header[3].length!=0){
+				level=7; key=header[3];
+				break;
+			}
+		}
+		datapost.flag=8;
+		datapost.level= level;
+		datapost.key=key;
+		getData(url, "POST", false, 'application/json',JSON.stringify(datapost), function(sk3){
+			if(sk3.success){
+				var sk3row=sk3.rows;
+				pdeunit = pdeunit+sk3row[0].unit+(sk3row.length>1?"-"+sk3row[sk3row.length-1].unit:"");
+			}
+		});
+		cb(pdeunit);
+	}
+}
+function popPreDeUnit(){
 }
