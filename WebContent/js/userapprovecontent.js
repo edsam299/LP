@@ -15,7 +15,7 @@ function show(){
 	userapprovecontent_btname =urlParams.get('btname');
 	userapprovecontent_suttaname =urlParams.get('suttaname');
 	userapprovecontent_seq=urlParams.get('seq');
-	userapprovecontent_unit = urlParams.get('unit');
+	userapprovecontent_unit = urlParams.get('unit');	
 	setUI();
 }
 function setUI(){
@@ -75,10 +75,11 @@ function setUI(){
 						btnUserapprovePredeunit(header,function(pdeunit){
 							document.getElementById("btnUserapprovePredeunit").innerHTML= pdeunit;
 						});
-						document.getElementById(btnUserapprovePredeunit).addEventListener('click', function() {
+						
+						document.getElementById('btnpdfde').addEventListener('click', function() {
 							popPreDeUnit();
 
-						},true);
+						});
 						
 					}
 				});
@@ -122,4 +123,32 @@ function setUI(){
 	}
 }
 function popPreDeUnit(){
+	var datapost=new Object();
+	var url = linkprojecthostname+"/LinkingService/searchLinkgDB";
+	datapost.flag=7;
+	datapost.h3fcrid= userapprovecontent_idsutta;
+	datapost.unit = userapprovecontent_unit;
+	getData(url, "POST", false, 'application/json',JSON.stringify(datapost), function(obj){ //find lpunit
+		if(obj.success){
+			datapost.flag=9;
+			getData(url, "POST", false, 'application/json',JSON.stringify(datapost), function(obj){ //find idlink
+				if(obj.success){
+					datapost.flag=10;
+					datapost.idlink=obj.rows[0].id;
+					getData(url, "POST", false, 'application/json',JSON.stringify(datapost), function(obj){ //find picture
+						if(obj.success){
+							console.log(obj)
+							let imgElem=document.getElementById('displayimg');
+							imgElem.setAttribute('src', "data:image/jpg;base64," + obj.rows[0].pic);
+						}
+					});
+				}
+			});
+		}
+	});
 }
+
+//function nextprevoius(object,page){
+//	let imgElem=document.getElementById('displayimg');
+//	imgElem.setAttribute('src', "data:image/jpg;base64," + obj.rows[0].pic);
+//}

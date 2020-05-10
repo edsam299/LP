@@ -47,6 +47,13 @@
   text-decoration: none;
   cursor: pointer;
 }
+
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
 </style>
 </head>
 <body>
@@ -83,7 +90,7 @@
   </div>
 </div>
 <div class="w3-row w3-border" id="userapprovecontent" style="backgroundcolor:red;">
- 
+	<img id="displayimg" class="center">
 </div>
 <div id="templatepopup_approveusercontent" class="modal">
 	<div class="modal-content">
@@ -92,7 +99,7 @@
 	</div>
 </div>
 <!-- Script for Sidebar, Tabs, Accordions, Progress bars and slideshows -->
-<script language="javascript" src="js/userapprovecontent.js"></script>
+<script language="javascript" src="js/userapprovecontent.js?r=<%Math.random();%>"></script>
 <script>
 var tmpstr='';//'<div id="username">'+sessionStorage.getItem('username')+'</div>';
 tmpstr=tmpstr+'<div id="iduser" style="display:none;">'+sessionStorage.getItem('iduser')+'</div>';
