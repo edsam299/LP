@@ -6,6 +6,8 @@ var userapprovecontent_btname='';
 var userapprovecontent_suttaname='';
 var userapprovecontent_seq='';
 var userapprovecontent_unit='';
+var objImg=null;
+var currentPage=0;
 function show(){
 	var urlParams = new URLSearchParams(location.search);
 	userapprovecontent_idseries=urlParams.get('idseries');
@@ -78,9 +80,8 @@ function setUI(){
 						
 						document.getElementById('btnpdfde').addEventListener('click', function() {
 							popPreDeUnit();
-
 						});
-						
+						document.getElementById('btnpdfde').click();
 					}
 				});
 			}			
@@ -138,8 +139,8 @@ function popPreDeUnit(){
 					getData(url, "POST", false, 'application/json',JSON.stringify(datapost), function(obj){ //find picture
 						if(obj.success){
 							console.log(obj)
-							let imgElem=document.getElementById('displayimg');
-							imgElem.setAttribute('src', "data:image/jpg;base64," + obj.rows[0].pic);
+							objImg=obj.rows;
+							nextprevoius('first');
 						}
 					});
 				}
@@ -148,7 +149,31 @@ function popPreDeUnit(){
 	});
 }
 
-//function nextprevoius(object,page){
-//	let imgElem=document.getElementById('displayimg');
-//	imgElem.setAttribute('src', "data:image/jpg;base64," + obj.rows[0].pic);
-//}
+document.getElementById("nextpage").addEventListener('click', function(){
+	nextprevoius('next');
+});
+document.getElementById("previous").addEventListener('click', function(){
+	nextprevoius('previous');
+});
+
+function nextprevoius(event){
+	let imgElem=document.getElementById('displayimg');
+	if(event=='next'){
+		if(objImg.length>currentPage){
+			currentPage++;	
+			document.getElementById('lblpage').innerHTML=(currentPage+1);
+			imgElem.setAttribute('src', "data:image/jpg;base64," + objImg[currentPage].pic);				
+		}		
+	}else if(event=='previous'){
+		if(currentPage>0){
+			console.log(currentPage);
+			currentPage--;	
+			console.log(currentPage);
+			document.getElementById('lblpage').innerHTML=(currentPage+1);
+			imgElem.setAttribute('src', "data:image/jpg;base64," + objImg[currentPage].pic);			
+		}
+	}else{
+		document.getElementById('lblpage').innerHTML=(currentPage+1);
+		imgElem.setAttribute('src', "data:image/jpg;base64," + objImg[currentPage].pic);
+	}
+}

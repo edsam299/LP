@@ -79,9 +79,9 @@
     </div>
     <div class="col-lg-1"  style="padding-top: 5px;font-size: medium; color: #87a8b8;">
   		<b>Page:</b>&nbsp;
-		<span class="glyphicon glyphicon-fast-backward"></span>
-		<span id="lblunit" class="label label-default" style="background-color: #607D8B;">25</span>
-		<span class="glyphicon glyphicon-fast-forward"></span>	
+		<span id="previous" class="glyphicon glyphicon-fast-backward"></span>
+		<span id="lblpage" class="label label-default" style="background-color: #607D8B;"></span>
+		<span id="nextpage" class="glyphicon glyphicon-fast-forward"></span>	
     </div>
     <div class="col-lg-3" >
     	<button type="button" class="btn" style="color: chocolate;" id="btnchange">Change</button>
