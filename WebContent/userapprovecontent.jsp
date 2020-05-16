@@ -52,7 +52,8 @@
   display: block;
   margin-left: auto;
   margin-right: auto;
-  width: 50%;
+  width: 100%;
+  
 }
 </style>
 </head>
@@ -74,12 +75,12 @@
     color: #87a8b8;">
   		<b>Unit no:</b>&nbsp;
 		<span class="glyphicon glyphicon-backward"></span>
-		<span id="lblunit" class="label label-default">2</span>
+		<span id="lblunit" class="label label-default"></span>
 		<span class="glyphicon glyphicon-forward"></span>	
     </div>
     <div class="col-lg-1"  style="padding-top: 5px;font-size: medium; color: #87a8b8;">
   		<b>Page:</b>&nbsp;
-		<span id="previous" class="glyphicon glyphicon-fast-backward"></span>
+		<span id="previouspage" class="glyphicon glyphicon-fast-backward"></span>
 		<span id="lblpage" class="label label-default" style="background-color: #607D8B;"></span>
 		<span id="nextpage" class="glyphicon glyphicon-fast-forward"></span>	
     </div>
@@ -89,6 +90,7 @@
     </div>
   </div>
 </div>
+
 <div class="w3-row w3-border" id="userapprovecontent" style="backgroundcolor:red;">
 	<img id="displayimg" class="center">
 </div>

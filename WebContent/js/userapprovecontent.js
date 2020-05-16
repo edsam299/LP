@@ -20,12 +20,13 @@ function show(){
 	userapprovecontent_unit = urlParams.get('unit');	
 	setUI();
 }
-function setUI(){
+function setUI(){	
 	var datapost=new Object();
 	var url = linkprojecthostname+"/LinkingService/searchLinkgDB";
 	datapost.flag=7;
 	datapost.h3fcrid= userapprovecontent_idsutta;
 	datapost.unit = userapprovecontent_unit;
+	document.getElementById('lblunit').innerHTML=userapprovecontent_unit;
 	url = linkprojecthostname+"/LinkingService/searchLinkgDB";
 	getData(url, "POST", false, 'application/json',JSON.stringify(datapost), function(sk1){
 		if(sk1.success){
@@ -138,7 +139,7 @@ function popPreDeUnit(){
 					datapost.idlink=obj.rows[0].id;
 					getData(url, "POST", false, 'application/json',JSON.stringify(datapost), function(obj){ //find picture
 						if(obj.success){
-							console.log(obj)
+//							console.log(obj)
 							objImg=obj.rows;
 							nextprevoius('first');
 						}
@@ -152,14 +153,16 @@ function popPreDeUnit(){
 document.getElementById("nextpage").addEventListener('click', function(){
 	nextprevoius('next');
 });
-document.getElementById("previous").addEventListener('click', function(){
+document.getElementById("nextpage").style.cursor="pointer";
+document.getElementById("previouspage").addEventListener('click', function(){
 	nextprevoius('previous');
 });
+document.getElementById("previouspage").style.cursor="pointer";
 
 function nextprevoius(event){
 	let imgElem=document.getElementById('displayimg');
 	if(event=='next'){
-		if(objImg.length>currentPage){
+		if(objImg.length>(currentPage+1)){
 			currentPage++;	
 			document.getElementById('lblpage').innerHTML=(currentPage+1);
 			imgElem.setAttribute('src', "data:image/jpg;base64," + objImg[currentPage].pic);				
@@ -172,7 +175,7 @@ function nextprevoius(event){
 			document.getElementById('lblpage').innerHTML=(currentPage+1);
 			imgElem.setAttribute('src', "data:image/jpg;base64," + objImg[currentPage].pic);			
 		}
-	}else{
+	}else{// first initial display image from unit
 		document.getElementById('lblpage').innerHTML=(currentPage+1);
 		imgElem.setAttribute('src', "data:image/jpg;base64," + objImg[currentPage].pic);
 	}
