@@ -55,7 +55,7 @@ function checkSuttaStatus(ele){
 		getImportFileUI(fcname,idrow,status,function(tmpstrui){
 			tmpstr = tmpstrui;
 		});
-	}else if(status=='Linking' ){//|| status=='Linked'
+	}else if(status=='Linking'){// || status=='Linked'){
 		window.location.href='comparePdfEpub.jsp?idseries='+idseries+'&idbasetext='+idbasetext+
 		'&sname='+sname+'&btname='+bname+'&idsutta='+idrow+'&suttaname='+fcname;	
 	}else if(status=='Linked'){

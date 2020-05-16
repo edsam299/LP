@@ -53,9 +53,9 @@ function setdivpdfepub(){
 		datapost.flag = 1;
 		getData(url, "POST", false, 'application/json',JSON.stringify(datapost), function(s1){
 			if(s1.success){
-				// if(s1.status>=_submitstatus){
-				// 	setEnableSubmit(0);
-				// }
+				 if(s1.status>=_submitstatus){
+				 	setEnableSubmit(0);
+				 }
 			}
 		});
 	});
