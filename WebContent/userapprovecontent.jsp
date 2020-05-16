@@ -47,6 +47,14 @@
   text-decoration: none;
   cursor: pointer;
 }
+
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  
+}
 </style>
 </head>
 <body>
@@ -67,14 +75,14 @@
     color: #87a8b8;">
   		<b>Unit no:</b>&nbsp;
 		<span class="glyphicon glyphicon-backward"></span>
-		<span id="lblunit" class="label label-default">2</span>
+		<span id="lblunit" class="label label-default"></span>
 		<span class="glyphicon glyphicon-forward"></span>	
     </div>
     <div class="col-lg-1"  style="padding-top: 5px;font-size: medium; color: #87a8b8;">
   		<b>Page:</b>&nbsp;
-		<span class="glyphicon glyphicon-fast-backward"></span>
-		<span id="lblunit" class="label label-default" style="background-color: #607D8B;">25</span>
-		<span class="glyphicon glyphicon-fast-forward"></span>	
+		<span id="previouspage" class="glyphicon glyphicon-fast-backward"></span>
+		<span id="lblpage" class="label label-default" style="background-color: #607D8B;"></span>
+		<span id="nextpage" class="glyphicon glyphicon-fast-forward"></span>	
     </div>
     <div class="col-lg-3" >
     	<button type="button" class="btn" style="color: chocolate;" id="btnchange">Change</button>
@@ -82,8 +90,9 @@
     </div>
   </div>
 </div>
+
 <div class="w3-row w3-border" id="userapprovecontent" style="backgroundcolor:red;">
- 
+	<img id="displayimg" class="center">
 </div>
 <div id="templatepopup_approveusercontent" class="modal">
 	<div class="modal-content">
@@ -92,7 +101,7 @@
 	</div>
 </div>
 <!-- Script for Sidebar, Tabs, Accordions, Progress bars and slideshows -->
-<script language="javascript" src="js/userapprovecontent.js"></script>
+<script language="javascript" src="js/userapprovecontent.js?r=<%Math.random();%>"></script>
 <script>
 var tmpstr='';//'<div id="username">'+sessionStorage.getItem('username')+'</div>';
 tmpstr=tmpstr+'<div id="iduser" style="display:none;">'+sessionStorage.getItem('iduser')+'</div>';

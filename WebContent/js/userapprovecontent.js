@@ -6,6 +6,8 @@ var userapprovecontent_btname='';
 var userapprovecontent_suttaname='';
 var userapprovecontent_seq='';
 var userapprovecontent_unit='';
+var objImg=null;
+var currentPage=0;
 function show(){
 	var urlParams = new URLSearchParams(location.search);
 	userapprovecontent_idseries=urlParams.get('idseries');
@@ -15,15 +17,16 @@ function show(){
 	userapprovecontent_btname =urlParams.get('btname');
 	userapprovecontent_suttaname =urlParams.get('suttaname');
 	userapprovecontent_seq=urlParams.get('seq');
-	userapprovecontent_unit = urlParams.get('unit');
+	userapprovecontent_unit = urlParams.get('unit');	
 	setUI();
 }
-function setUI(){
+function setUI(){	
 	var datapost=new Object();
 	var url = linkprojecthostname+"/LinkingService/searchLinkgDB";
 	datapost.flag=7;
 	datapost.h3fcrid= userapprovecontent_idsutta;
 	datapost.unit = userapprovecontent_unit;
+	document.getElementById('lblunit').innerHTML=userapprovecontent_unit;
 	url = linkprojecthostname+"/LinkingService/searchLinkgDB";
 	getData(url, "POST", false, 'application/json',JSON.stringify(datapost), function(sk1){
 		if(sk1.success){
@@ -75,11 +78,11 @@ function setUI(){
 						btnUserapprovePredeunit(header,function(pdeunit){
 							document.getElementById("btnUserapprovePredeunit").innerHTML= pdeunit;
 						});
-						document.getElementById(btnUserapprovePredeunit).addEventListener('click', function() {
-							popPreDeUnit();
-
-						},true);
 						
+						document.getElementById('btnpdfde').addEventListener('click', function() {
+							popPreDeUnit();
+						});
+						document.getElementById('btnpdfde').click();
 					}
 				});
 			}			
@@ -122,4 +125,58 @@ function setUI(){
 	}
 }
 function popPreDeUnit(){
+	var datapost=new Object();
+	var url = linkprojecthostname+"/LinkingService/searchLinkgDB";
+	datapost.flag=7;
+	datapost.h3fcrid= userapprovecontent_idsutta;
+	datapost.unit = userapprovecontent_unit;
+	getData(url, "POST", false, 'application/json',JSON.stringify(datapost), function(obj){ //find lpunit
+		if(obj.success){
+			datapost.flag=9;
+			getData(url, "POST", false, 'application/json',JSON.stringify(datapost), function(obj){ //find idlink
+				if(obj.success){
+					datapost.flag=10;
+					datapost.idlink=obj.rows[0].id;
+					getData(url, "POST", false, 'application/json',JSON.stringify(datapost), function(obj){ //find picture
+						if(obj.success){
+//							console.log(obj)
+							objImg=obj.rows;
+							nextprevoius('first');
+						}
+					});
+				}
+			});
+		}
+	});
+}
+
+document.getElementById("nextpage").addEventListener('click', function(){
+	nextprevoius('next');
+});
+document.getElementById("nextpage").style.cursor="pointer";
+document.getElementById("previouspage").addEventListener('click', function(){
+	nextprevoius('previous');
+});
+document.getElementById("previouspage").style.cursor="pointer";
+
+function nextprevoius(event){
+	let imgElem=document.getElementById('displayimg');
+	if(event=='next'){
+		if(objImg.length>(currentPage+1)){
+			currentPage++;	
+			document.getElementById('lblpage').innerHTML=(currentPage+1);
+			imgElem.setAttribute('src', "data:image/jpg;base64," + objImg[currentPage].pic);				
+		}		
+	}else if(event=='previous'){
+		if(currentPage>0){
+			console.log(currentPage);
+			currentPage--;	
+			console.log(currentPage);
+			document.getElementById('lblpage').innerHTML=(currentPage+1);
+			imgElem.setAttribute('src', "data:image/jpg;base64," + objImg[currentPage].pic);			
+		}
+	}else{// first initial display image from unit
+		document.getElementById('lblpage').innerHTML=(currentPage+1);
+		imgElem.setAttribute('src', "data:image/jpg;base64," + objImg[currentPage].pic);
+	}
 }
