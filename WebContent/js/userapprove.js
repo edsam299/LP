@@ -28,9 +28,7 @@ function showtable(){
 	datapost.flag = 5;
 	datapost.h3fcrid =userapprove_idsutta;
 	getData(url, "POST", false, 'application/json',JSON.stringify(datapost), function(rsunit){
-//	getData(url, "GET", false, 'application/json','', function(rsunit){
 		unitarray=rsunit.rows;
-		alert(rsunit.rows.length);
 		datapost.flag = 6;
 		url = linkprojecthostname+"/LinkingService/searchLinkgDB";
 		getData(url, "POST", false, 'application/json',JSON.stringify(datapost), function(rsheader){

@@ -253,10 +253,12 @@ function clkApproveContent(){
 	
 }
 function uploadFile(form,stpage, endpage, status){
-    var url = '../LP/FileUploadServlet';
+    var url = '../LP/FileUploadServlet';//production
+    var url = '/LP/FileUploadServlet';//test
     var xhr = new XMLHttpRequest();
     var fd = new FormData(form);
     var statusImportCompleted="Linking";
+    alert(url);
     xhr.open("POST", url, true);
     xhr.onreadystatechange = function() {
     	var xx ='';

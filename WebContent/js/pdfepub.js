@@ -10,13 +10,14 @@ var _submitstatus = 4;
 var _submit_disablestyle="background-color:grey;border: none;color: white;text-align: center;text-decoration: none;margin: 4px 2px;cursor: pointer;";
 var _submit_enablestyle="background-color:#299086;border: none;color: white;text-align: center;text-decoration: none;margin: 4px 2px;cursor: pointer;";
 function setEnableSubmit(flag){
-	if(flag==0){
-		document.getElementById("submitbutton").style=_submit_disablestyle;
-		document.getElementById("submitbutton").setAttribute("onclick",'');
-	}else{
+//for test
+//	if(flag==0){
+//		document.getElementById("submitbutton").style=_submit_disablestyle;
+//		document.getElementById("submitbutton").setAttribute("onclick",'');
+//	}else{
 		document.getElementById("submitbutton").style=_submit_enablestyle;
 		document.getElementById("submitbutton").setAttribute("onclick",submit());
-	}
+//	}
 }
 function setdivpdfepub(){
 	document.getElementById("submitbutton").addEventListener("click", function(){
@@ -53,9 +54,10 @@ function setdivpdfepub(){
 		datapost.flag = 1;
 		getData(url, "POST", false, 'application/json',JSON.stringify(datapost), function(s1){
 			if(s1.success){
-				 if(s1.status>=_submitstatus){
-				 	setEnableSubmit(0);
-				 }
+				// for test 23052020
+//				 if(s1.status>=_submitstatus){
+//				 	setEnableSubmit(0);
+//				 }
 			}
 		});
 	});
@@ -63,7 +65,6 @@ function setdivpdfepub(){
 function addResetEvent(cb){
 	for(var sk=0;sk<_allpage;sk++){
 		document.getElementById("pageheading"+(sk+1)).addEventListener("click", function(){
-			//alert(this.id);
 			setResetPopup(this);
 		});
 	}
@@ -86,8 +87,6 @@ function resetPage(obj){
 			var pagejson = JSON.parse(pagestr);
 			var lpidarr = pagejson.lpidarr;
 			var otheridstr = lpidarr[0];
-			console.log(otheridstr);
-			//alert(otheridstr);
 			if(otheridstr.length==0){
 				popupstr = '<label style="color:red;">This page is not information about incompleted point before!</label>'
 				document.getElementById("popbody").innerHTML=popupstr;
@@ -438,7 +437,6 @@ function saveOther(id){
 								//update jsonpdfepub
 								var completednumber = completedsave.length/4;
 								url = linkprojecthostname+"/updateIncompletedJsonPdfEpub/"+_idlink+"/"+pagearr[0]+"/"+completednumber;
-								//alert(url);
 								getData(url, "GET", false, 'application/json','', function(success){
 									if(success.success){
 										//alert(success.incomplete);
@@ -610,7 +608,6 @@ function popupRearrange(otheridstr){
 		var iframe = document.getElementById("epubdiv");
 		var content = iframe.contentDocument || iframe.contentWindow.document;
 		var popid=otheridarr[sk];
-		console.log(popid);
 		content.getElementById(popid).addEventListener("click", function(){
 			//alert(this.id);
 			var popupstr='';
@@ -632,7 +629,8 @@ function submit(){
 	var index = doc.indexOf(interest);
 	var incomplete = "Please check incompleted point in each page!";
 	var popupstr='';
-	if(index!=-1){
+	//for test
+/*	if(index!=-1){
 		popupstr = '<label style="color:red">'+incomplete+'</label>'
 		document.getElementById("popbody").innerHTML=popupstr;
 		popupTemplate_Event('checksubmit',popupstr,null);
@@ -641,13 +639,17 @@ function submit(){
 	var css = document.getElementById("submitbutton").getAttribute("style");
 	if(css.indexOf('grey')!=-1){
 		return;
-	}
+	}*/
 	var url= linkprojecthostname+"/submitApproveForAdmin/"+_idlink+"/"+_h3fcrid+"/"+sessionStorage.getItem('iduser');
 	console.log(url);
 	getData(url, "GET", false, 'application/json','', function(datapic){
 		alert(datapic.success);
 		if(datapic.success){
-			setEnableSubmit(0);
+			url= linkprojecthostname+"/compareEPLP/"+_h3fcrid;
+			getData(url, "GET", false, 'application/json','', function(datacompareeplp){
+				alert(datacompareeplp.success);
+				setEnableSubmit(0);
+			});
 		}
 	});
 }
